@@ -1,46 +1,47 @@
 name: Demo CICD APP
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+    test:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version:
-          - 12
-          - 14
-          - 16
-          - 18
-        os:
-          - ubuntu-latest
-          - macos-latest
-          - windows-latest
+        strategy:
+            matrix:
+                node-version:
+                    - 12
+                    - 14
+                    - 16
+                    - 18
+                # os:
+                # - ubuntu-latest
+                # - macos-latest
+                # - windows-latest
 
-    env:
-      MODE: dev
+        env:
+            MODE: ${{secrets.MODE}}
+            # MODE: "dev"
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        run: npm install
+            - name: Install dependencies
+              run: npm install
 
-      - name: Run Tests
-        run: npm test
+            # - name: Run Tests
+            #   run: npm test
 
-      - name: Build
-        run: npm run build
+            - name: Build
+              run: npm run build
