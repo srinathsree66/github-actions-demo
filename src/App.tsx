@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-     <h1>React CICD with GitHub Actions</h1>
+     <h1>React CICD with Git Actions</h1>
     </>
   )
 }
